@@ -1,36 +1,26 @@
-import { formatUserName } from '../utils';
 import { User } from './api/users';
 
 export interface UserProps {
-  data?: User[]
+  users?: User[]
 }
 
-const Users = ({ data }: UserProps) => {
+const Users = ({ users }: UserProps) => {
   return (
-    <div>
-      <div>
-        <h1>Users Page</h1>
+    <div className='flex flex-col'>
+      <div className='flex text-center'>
+        <h1 className='text-3xl font-bold'>
+          Users Page
+        </h1>
       </div>
-      {(data || []).length === 0 && (
-        <p>No found</p>
-      )}
-      <div>
-        {data?.map((user: User) => {
-          return (
-            <div key={user.id}>
-              {formatUserName(user)}
-            </div>
-          )
-        })}
-      </div>
+      {users && <Users users={users} />}
     </div>
   )
 }
 
 export const getServerSideProps = async () => {
-  const res = await fetch('http://localhost:3000/api/users')
-  const data = await res.json()
-  return { props: { data } }
+  const res = await fetch(`${process.env.API_URL}/api/users`)
+  const users = await res.json()
+  return { props: { users } }
 }
 
 export default Users
