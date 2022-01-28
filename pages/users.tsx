@@ -1,23 +1,24 @@
-export interface User {
-  id: string
-  name: string
-}
+import { formatUserName } from '../utils';
+import { User } from './api/users';
 
 export interface UserProps {
-  data?: {
-    users: User[]
-  }
+  data?: User[]
 }
 
 const Users = ({ data }: UserProps) => {
   return (
     <div>
-      <h1>Users Page</h1>
       <div>
-        {data?.users?.map((user: User) => {
+        <h1>Users Page</h1>
+      </div>
+      {(data || []).length === 0 && (
+        <p>No found</p>
+      )}
+      <div>
+        {data?.map((user: User) => {
           return (
             <div key={user.id}>
-              {user.name}
+              {formatUserName(user)}
             </div>
           )
         })}
