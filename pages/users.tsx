@@ -13,7 +13,7 @@ const Users = ({ users }: UserProps) => {
           Users Page
         </h1>
       </div>
-      {users && <UsersList users={users} />}
+      {users?.length && <UsersList users={users} />}
     </div>
   )
 }
