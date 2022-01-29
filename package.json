@@ -2,9 +2,10 @@
   "name": "done.deal",
   "private": true,
   "scripts": {
+    "data": "node ./init/data.js",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "npm run data && npm run build && next start",
     "lint": "next lint",
     "test": "jest",
     "cypress": "cypress open"
