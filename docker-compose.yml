@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  db:
+    image: "postgres"
+    volumes:
+      - ./init/db.sql:/docker-entrypoint-initdb.d/1-db.sql
+      - ./init/table.sql:/docker-entrypoint-initdb.d/2-table.sql
+    ports:
+      - 5432:5432
+    env_file:
+      - ./.env.local
+  donedeal:
+    image: donedeal
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 3000:3000
+    links:
+      - "db"
+    restart: "on-failure"
+    env_file:
+      - ./.env.local
