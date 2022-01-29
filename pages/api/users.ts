@@ -35,10 +35,10 @@ export interface User {
 
 const handler = async (_: NextApiRequest, res: NextApiResponse) => {
   try {
-    const users = await db.any('SELECT * FROM users');
-    res.status(200).json(users);
+    const users: User[] = await db.any('SELECT * FROM users');
+    res.status(200).json({ users, error: null });
   } catch (error) {
-    res.status(500).send({ message: 'Error while getting users', error });
+    res.status(500).json({ users: [], error: 'Error while getting users' });
   }
 }
 

@@ -3,9 +3,10 @@ import { UsersList } from '../components/userslist'
 
 export interface UserProps {
   users?: UserInterface[]
+  error?: string
 }
 
-const Users = ({ users }: UserProps) => {
+const Users = ({ users, error }: UserProps) => {
   return (
     <div className='flex flex-col'>
       <div className=''>
@@ -13,15 +14,20 @@ const Users = ({ users }: UserProps) => {
           Users Page
         </h1>
       </div>
-      {users?.length && <UsersList users={users} />}
+      {error && <div>{error}</div>}
+      {users?.length === 0 ? (
+        <p>No users found</p>
+      ) : (
+        <UsersList users={users as UserInterface[]} />
+      )}
     </div>
   )
 }
 
 export const getServerSideProps = async () => {
   const res = await fetch(`${process.env.API_URL}/api/users`)
-  const users = await res.json()
-  return { props: { users } }
+  const { users, error } = await res.json()
+  return { props: { users, error } }
 }
 
 export default Users
