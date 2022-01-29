@@ -3,7 +3,15 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 const pgp = pgPromise({ noWarnings: true })
 
-const db = pgp(`postgres://User:Password@data.local:5432/dealt`)
+const connexionString = [
+  'postgres://',
+  process.env.POSTGRES_USER, ':', process.env.POSTGRES_PASSWORD,
+  '@',
+  process.env.DB_HOST,':',process.env.DB_PORT,
+  '/dealt'
+].join('')
+
+const db = pgp(connexionString)
 
 export interface RandomUser {
   name: {
