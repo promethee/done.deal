@@ -6,7 +6,7 @@ describe('Navigation', () => {
     cy.visit('http://localhost:3000/')
 
     // Find a link with an href attribute containing "users" and click it
-    cy.get('a[href*="users"]').click()
+    cy.get('[href*="users"]').click()
 
     // The new url should include "/users"
     cy.url().should('include', '/users')
