@@ -13,5 +13,8 @@ describe('Navigation', () => {
 
     // The new page should contain an h1 with "Users page"
     cy.get('h1').contains('Users Page')
+
+    // The new page should contain at least one usercard div
+    cy.get('[data-test="usercard"]')
   })
 })

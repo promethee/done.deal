@@ -6,7 +6,7 @@ export const UsersList = ({ users }: { users: User[] }) => {
     <div className="flex flex-nowrap md:flex-wrap flex-col md:flex-row">
       {users.map((user: User) => {
         return (
-          <div key={user.id}>
+          <div key={user.id} data-test='usercard'>
             <UserCard user={user} />
           </div>
         )
